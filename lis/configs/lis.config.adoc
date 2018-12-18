@@ -346,6 +346,7 @@ endif::devonly[]
 |"`PALS station forcing`"      | PALS station forcing
 |"`PILDAS`"                    | PILDAS
 |"`PET USGS`"                  | USGS PET 1.0 deg
+|"'PET LVT'"                   | LVT-generated PET at 0.125 deg
 |"`NAM242`"                    | NAM 242 AWIPS Grid \-- Over Alaska
 |"`WRFout`"                    | WRF output
 |"`RDHM.3.5.6`"                | RDHM 3.5.6 (SAC-HTET and SNOW-17)
@@ -5999,6 +6000,30 @@ Acceptable values are:
 .Example _lis.config_ entry
 ....
 USGS PET forcing directory:       ./PET_USGS
+....
+
+
+==== PET_LVT
+anchor:sssec_supp_petlvt[PET_LVT]
+
+'LVT PET forcing directory:` specifies the location of the
+LVT-generated PET forcing files.
+
+`LVT PET forcing type:` specifies the choice for PET forcing
+ data type.
+Acceptable values are:
+
+|====
+|Value | Description
+
+| current       | Retrospective or current time-based PET files
+| climatology   | Climatology-based PET files
+|====
+
+.Example _lis.config_ entry
+....
+LVT PET forcing directory:       ./PET_LVT
+LVT PET forcing type:            current
 ....
 
 

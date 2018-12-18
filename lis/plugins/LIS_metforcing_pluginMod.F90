@@ -254,6 +254,10 @@ subroutine LIS_metforcing_plugin
    use petusgs_forcingMod
 #endif
 
+#if ( defined MF_PET_LVT )
+   use petlvt_forcingMod
+#endif
+
 #if ( defined MF_CHIRPS2 )
    use chirps2_forcingMod
 #endif
@@ -584,6 +588,12 @@ subroutine LIS_metforcing_plugin
    external get_petusgs
    external timeinterp_petusgs
    external finalize_petusgs
+#endif
+
+#if ( defined MF_PET_LVT )
+   external get_petlvt
+   external timeinterp_petlvt
+   external finalize_petlvt
 #endif
 
 #if ( defined MF_CHIRPS2 )
@@ -1098,6 +1108,15 @@ subroutine LIS_metforcing_plugin
    call registertimeinterpmetforc(trim(LIS_USGSPETforcId)//char(0), &
                                   timeinterp_petusgs)
    call registerfinalmetforc(trim(LIS_USGSPETforcId)//char(0),finalize_petusgs)
+#endif
+
+#if ( defined MF_PET_LVT )
+! - FEWSNET PET LVT Data
+   call registerinitmetforc(trim(LIS_LVTPETforcId)//char(0),init_petlvt)
+   call registerretrievemetforc(trim(LIS_LVTPETforcId)//char(0),get_petlvt)
+   call registertimeinterpmetforc(trim(LIS_LVTPETforcId)//char(0), &
+                                  timeinterp_petlvt)
+   call registerfinalmetforc(trim(LIS_LVTPETforcId)//char(0),finalize_petlvt)
 #endif
 
 #if ( defined MF_CHIRPS2 )
