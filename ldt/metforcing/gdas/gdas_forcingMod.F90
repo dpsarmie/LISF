@@ -120,7 +120,8 @@ module gdas_forcingMod
      integer, allocatable   :: n222(:,:)
      real, allocatable      :: w112(:,:),w122(:,:)
      real, allocatable      :: w212(:,:),w222(:,:)
-
+ 
+     logical       :: reset_flag
   end type gdas_type_dec
   
   type(gdas_type_dec), allocatable :: gdas_struc(:)
@@ -190,7 +191,12 @@ contains
        call LDT_update_timestep(LDT_rc, n, gdas_struc(n)%ts)
     enddo
 
+    gdas_struc%reset_flag = .false.
     gdas_struc(:)%nmif    = 9 
+
+    LDT_rc%met_nf(findex) = 9    ! number of met variables in GDAS forcing
+    LDT_rc%met_ts(findex) = 21600
+    LDT_rc%met_zterp(findex) = .true.
 
   ! Metforcing and parameter grid info:
     LDT_rc%met_proj(findex) = "gaussian"

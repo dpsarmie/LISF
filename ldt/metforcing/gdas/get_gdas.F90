@@ -107,11 +107,12 @@ subroutine get_gdas(n, findex)
   nstep = LDT_get_nstep(LDT_rc,n)
   nforce = gdas_struc(n)%nmif
   
-  if ( LDT_rc%tscount(n).eq.1 .or. LDT_rc%rstflag(n)== 1) then
+  if ( LDT_rc%tscount(n).eq.1 .or. LDT_rc%rstflag(n)== 1 .or. gdas_struc(n)%reset_flag ) then
      gdas_struc(n)%findtime1=1
      gdas_struc(n)%findtime2=1
      movetime=0        ! movetime is not properly set at time-step = 1
      LDT_rc%rstflag(n) = 0
+     gdas_struc(n)%reset_flag = .false.
   endif
   
   !-----------------------------------------------------------------
@@ -160,7 +161,7 @@ subroutine get_gdas(n, findex)
   ! requiring that both gdastime2 be assigned to gdastime1 and a new
   ! gdastime2 be set 3 or 6 hours ahead of the current gdastime2.
   !-----------------------------------------------------------------
-  if ( timenow > gdas_struc(n)%gdastime2 ) then
+  if ( timenow >= gdas_struc(n)%gdastime2 ) then
      movetime  = 1
      gdas_struc(n)%findtime2 = 1
   end if
