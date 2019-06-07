@@ -51,9 +51,9 @@ subroutine readcrd_imerg()
 
   call ESMF_ConfigFindLabel(LIS_config,"IMERG version:",rc=rc)
   if(rc /= 0) then
-     write(LIS_logunit,*) "[WARN] IMERG version not specified. Defaulting to latest IMERG version (V06A)."
+     write(LIS_logunit,*) "[WARN] IMERG version not specified. Defaulting to latest IMERG version (V06B)."
      do n=1, LIS_rc%nnest
-        imerg_struc(n)%imergver = 'V06A'
+        imerg_struc(n)%imergver = 'V06B'
      enddo
   else
      do n=1, LIS_rc%nnest
